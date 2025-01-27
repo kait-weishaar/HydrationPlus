@@ -10,118 +10,111 @@
         <title>Hydration Calculator</title>
     </head>
     <body>
-        <div class="container-fluid p-5 bg-primary text-white text-center">
+        <div class="container-fluid p-2 bg-primary text-white text-center">
             <h1> Hydration Calculator</h1>
             <p1>Simply enter the duration of your race and your sweat rate  </p1>
-        </div><br>
-        <section class="row">
-            <div class="col-sm-4 card">
-                <h3 class="text-center">No sweat test data?</h3>
-                <div class="card">
+        </div>
+        <section class="grid row m-2 column-gap-5">
+            <div class="col card"><br>
+                <h4 class="text-center">No sweat test data?</h4>
+                <div class="card border-0">
                     <div class="card-body">
                         <h5 class="card-title text-center">Sweat Rate Norms</h5>
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
                                     <td>Low</td>
-                                    <td>X mg or less</td>
-                                    <td>Very Rare</td>
+                                    <td>Less than 1 L/hr</td>
+                                    <td>Rare-Testing Required</td>
                                 </tr>
                                 <tr>
                                     <td>Moderate</td>
-                                    <td>X-Y mg </td>
+                                    <td>1-1.5 L/hr </td>
                                     <td>Normal Sweating</td>
                                 </tr>
                                 <tr>
                                     <td>High</td>
-                                    <td>X-Y mg</td>
+                                    <td>1.5-2 L/hr mg</td>
                                     <td>Profuse Sweating</td>
                                 </tr>
                                 <tr>
                                     <td> Very High</td>
-                                    <td>X-Y mg</td>
-                                    <td>Very Rare</td>
+                                    <td>2 L/hr or more</td>
+                                    <td>Rare-Testing Required</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div><br>
-                <div class="card">
+                <div class="card border-0">
                     <div class="card-body">
                         <h5 class="card-title text-center">Sodium Concentration Norms</h5>
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
                                     <td>Low</td>
-                                    <td>X mg/L or less</td>
-                                    <td>Very Rare</td>
+                                    <td>Less than 750 mg/L</td>
+                                    <td>Rare-Testing Required</td>
                                 </tr>
                                 <tr>
                                     <td>Moderate</td>
-                                    <td>X-Y mg/L </td>
+                                    <td>750-1100 mg/L </td>
                                     <td>No sweat crystals</td>
                                 </tr>
                                 <tr>
                                     <td>High</td>
-                                    <td>X-Y mg/L</td>
+                                    <td>1100-1450 mg/L</td>
                                     <td>Sweat crystals</td>
                                 </tr>
                                 <tr>
                                     <td> Very High</td>
-                                    <td>X-Y mg/L</td>
-                                    <td>Very Rare</td>
+                                    <td>1450-1850 mg/L</td>
+                                    <td>Rare-Testing Required</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>    
-                <div class="col-sm-4 card"><br>
-                    <div class="card text-center">
-                        <h2>Inputs</h2>
-                        <form>
-                            <label for="Weight">Weight</label>
-                            <input type="text" id="weight" name="weight" value="lbs"><br><br>
-                            <label for="Sweat Rate">Sweat Rate</label>
-                            <input type="text" id="Sweat Rate" name="Sweat Rate" value="Liters/Hour"><br><br>
+                <div class="col card border-0">
+                    <div class="card p-3">
+                        <h3 class="text-center">Inputs</h3>
+                        <form class="was-validated">
+                            <label for="Weight">Weight:</label>
+                            <input type="text" id="weight" class="form-control" name="weight" placeholder="lbs" required><br>
+                            <label for="Sweat Rate">Sweat Rate:</label>
+                            <input type="text" id="Sweat Rate" class="form-control was-validated" name="Sweat Rate" placeholder="Liters/Hour" required><br>
                             <label for="Na+">Sodium Concentration</label>
-                            <input type="text" id="Na+" name="Na+" value="Milligrams/Liter"><br><br>
+                            <input type="text" id="Na+" class="form-control was-validated" name="Na+" placeholder="Milligrams/Liter" required><br>
                             <label for="Duration">Event Duration</label>
-                            <input type="text" id="Duration" name="Duration" value="Hours"><br><br>
-                            <input type="submit" value="Calculate"><br><br>
+                            <input type="text" id="Duration" class="form-control was-validated" name="Duration" placeholder="Hours" required><br>
+                            <button class ="btn btn-primary" type="submit">Calculate</button><br><br>
                         </form>
                     </div><br>
-                    <div class="card">
-                        <h2 class="text-center">Results</h2><br>
-                        <p> Fluid Consumption (L/hr)</p><br>
-                        <p> Sodium Consumption (mg/hr)</p><br>
+                    <div class="card p-3">
+                        <h3 class="text-center">Results</h3><br>
+                        <p> Fluid Consumption (L/hr)</p>
+                        <p id="fluidResult"></p>
+                        <p> Sodium Consumption (mg/hr)</p>
+                        <p id="fluidResult"></p>
                     </div>
                 </div>
-                <div class="col-sm-4 card"><br>
-                    <div class="card text-center">
-                        <h2>Calculate Sweat Rate</h2>
-                        <form>
-                            <label for="Weight">Weight</label>
-                            <input type="text" id="weight" name="weight" value="lbs"><br><br>
-                            <label for="Sweat Rate">Sweat Rate</label>
-                            <input type="text" id="Sweat Rate" name="Sweat Rate" value="Liters/Hour"><br><br>
-                            <label for="Na+">Sodium Concentration</label>
-                            <input type="text" id="Na+" name="Na+" value="Milligrams/Liter"><br><br>
-                            <label for="Duration">Event Duration</label>
-                            <input type="text" id="Duration" name="Duration" value="Hours"><br><br>
-                            <input type="submit" value="Calculate"><br><br>
-                        </form>
+                <div class="col card border-0">
+                    <div class="card text-center p-3">
+                        <h3>Calculate Sweat Rate</h3>
+                        <img src="./images/sweatrate.png" class="rounded" alt="Sweat rate calculation - see link in references">
                     </div><br>
-                    <div class="card">
-                        <h2 class="text-center">References</h2><br>
-                        <p> Fluid Consumption (L/hr)</p><br>
-                        <p> Sodium Consumption (mg/hr)</p><br>
+                    <div class="card p-3">
+                        <h3 class="text-center">References</h3><br>
+                        <a href="https://doi.org/10.1080/17461391.2022.2083526"> Modelling Sodium Requirements - McCubbin 2023</a>
+                        <a href="https://www.academia.edu/76479670/The_Effects_of_Dehydration_on_Skill_Based_Performance"> The Effects of Dehydration - Hillyer, Menon, Singh 2015</a>
+                        <a href="https://www.mysportscience.com/post/2017/07/14/how-much-do-you-sweat">Sweat Rate Calculation</a>
                     </div><br>
                 </div>
         </section>
         
-    </body><br>
-    <footer class="container-fluid p-5 bg-primary text-white text-center">
+    </body>
+    <footer class="p-2 bg-primary text-white text-center sticky-bottom">
         <div>Developed by Evan Hoyt and Kait Weishaar</div>
         <div>For questions, reach out to Evan Hoyt</div>
     </footer>
