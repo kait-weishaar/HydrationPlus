@@ -96,9 +96,9 @@
                     <div class="card p-3">
                         <h3 class="text-center">Results</h3><br>
                         <p> Fluid Consumption (L/hr)</p>
-                        <p id="fluidResult"></p>
+                        <p id="fluidResult" class="text-primary"></p>
                         <p> Sodium Consumption (mg/hr)</p>
-                        <p id="fluidResult"></p>
+                        <p id="sodiumResult" class="text-primary"></p>
                     </div>
                 </div>
                 <div class="col card border-0">
@@ -116,6 +116,7 @@
         </section>
         <script>
             var fluidResult=document.getElementById("fluidResult")
+            var sodiumResult=document.getElementById("sodiumResult")
             var submitButton = document.getElementById("form");
 
 
@@ -143,6 +144,8 @@
             var fluidReplace = (((sweatRate*2.2)*duration)-difference)/((sweatRate*2.2)*duration);
             console.log("Fluid Replacement Percentage:", fluidReplace);
 
+            var fluidConsumption = Math.round((sweatRate*duration*fluidReplace)/duration*100)/100;
+
             //Define reference data
             var fourSeventyFive=[0, 0, 0, 0, 0, 0, 0, 0, 38, 38];
             var sixSeventyFive=[0, 0, 0, 0, 0, 0, 0, 6, 59, 59];
@@ -159,23 +162,187 @@
             var fluidUpper=Math.ceil(fluidReplace*10)-1
             console.log("Fluid upper bound", fluidUpper);
 
+            //Also need the value of lower bound
+            var fL =Math.floor(fluidReplace*10)/10; 
+            var fU=Math.ceil(fluidReplace*10)/10;
+
+
             //Define applicable array for sodium concentration
             if(sodium < 475) {
-                console.log("475")
-            } else if (sodium < 675) {
+                console.log("Less than 475");
+                var lowerBound = fourSeventyFive.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = fourSeventyFive.at(fluidUpper);
+                console.log(upperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*lowInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+                sodiumResult.innerHTML += "   (Calculator doesn't support Sodium <475)";
+            } else if (sodium === 475){
+                console.log("Exactly 475");
+                var lowerBound = fourSeventyFive.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = fourSeventyFive.at(fluidUpper);
+                console.log(upperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*lowInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+            }  else if (sodium < 675) {
                 console.log("675")
+                var lowerBound = fourSeventyFive.at(fluidLower);
+                console.log("low lower",lowerBound);
+                var upperBound = fourSeventyFive.at(fluidUpper);
+                console.log("low upper" ,upperBound);
+                var LowerBound = sixSeventyFive.at(fluidLower);
+                console.log("high lower" ,LowerBound);
+                var UpperBound = sixSeventyFive.at(fluidUpper);
+                console.log("high upper" ,UpperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                console.log("linear int 1",lowInt);
+                var highInt = LowerBound + ((fluidReplace-fL)*(UpperBound-LowerBound))/(fU-fL);
+                console.log("linear int 2",highInt);
+                var linearInt = lowInt +((sodium-475)*(highInt-lowInt))/(675-475);
+                console.log("linear int 3" ,linearInt);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*linearInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+            } else if (sodium === 675){
+                console.log("Exactly 675")
+                var lowerBound = sixSeventyFive.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = sixSeventyFive.at(fluidUpper);
+                console.log(upperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*lowInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+
             } else if (sodium < 900) {
                 console.log("900")
+                var lowerBound = sixSeventyFive.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = sixSeventyFive.at(fluidUpper);
+                console.log(upperBound);
+                var LowerBound = nineHundred.at(fluidLower);
+                console.log(LowerBound);
+                var UpperBound = nineHundred.at(fluidUpper);
+                console.log(UpperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                console.log("linear int 1",lowInt);
+                var highInt = LowerBound + ((fluidReplace-fL)*(UpperBound-LowerBound))/(fU-fL);
+                console.log("linear int 2",highInt);
+                var linearInt = lowInt +((sodium-675)*(highInt-lowInt))/(900-675);
+                console.log("linear int 3" ,linearInt);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*linearInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+            } else if (sodium === 900){
+                console.log("Exactly 900")
+                var lowerBound = nineHundred.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = nineHundred.at(fluidUpper);
+                console.log(upperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*lowInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+
             } else if (sodium < 1150) {
                 console.log("1150")
+                var lowerBound = nineHundred.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = nineHundred.at(fluidUpper);
+                console.log(upperBound);
+                var LowerBound = elevenFifty.at(fluidLower);
+                console.log(LowerBound);
+                var UpperBound = elevenFifty.at(fluidUpper);
+                console.log(UpperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                console.log("linear int 1",lowInt);
+                var highInt = LowerBound + ((fluidReplace-fL)*(UpperBound-LowerBound))/(fU-fL);
+                console.log("linear int 2",highInt);
+                var linearInt = lowInt +((sodium-900)*(highInt-lowInt))/(1150-900);
+                console.log("linear int 3" ,linearInt);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*linearInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+            } else if (sodium === 1150){
+                console.log("Exactly 1150")
+                var lowerBound = elevenFifty.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = elevenFifty.at(fluidUpper);
+                console.log(upperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*lowInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+
             } else if (sodium < 1400) {
                 console.log("1400")
+                var lowerBound = nineHundred.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = nineHundred.at(fluidUpper);
+                console.log(upperBound);
+                var LowerBound = fourteenHundo.at(fluidLower);
+                console.log(LowerBound);
+                var UpperBound = fourteenHundo.at(fluidUpper);
+                console.log(UpperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                console.log("linear int 1",lowInt);
+                var highInt = LowerBound + ((fluidReplace-fL)*(UpperBound-LowerBound))/(fU-fL);
+                console.log("linear int 2",highInt);
+                var linearInt = lowInt +((sodium-1150)*(highInt-lowInt))/(1400-1150);
+                console.log("linear int 3" ,linearInt);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*linearInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+            } else if (sodium === 1400){
+                console.log("Exactly 1400")
+                var lowerBound = fourteenHundo.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = fourteenHundo.at(fluidUpper);
+                console.log(upperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*lowInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+
+            } else if (sodium === 1850){
+                console.log("Exactly 1850")
+                var lowerBound = eighteenFifty.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = eighteenFifty.at(fluidUpper);
+                console.log(upperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*lowInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+
+            } else if (sodium > 1850){
+                console.log("Over 1850")
+                var lowerBound = eighteenFifty.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = eighteenFifty.at(fluidUpper);
+                console.log(upperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*lowInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
+                sodiumResult.innerHTML += "   (Calculator doesn't support Sodium >1850)";
+
             } else {
                 console.log("1850")
+                var lowerBound = eighteenFifty.at(fluidLower);
+                console.log(lowerBound);
+                var upperBound = eighteenFifty.at(fluidUpper);
+                console.log(upperBound);
+                var LowerBound = eighteenFifty.at(fluidLower);
+                console.log(LowerBound);
+                var UpperBound = eighteenFifty.at(fluidUpper);
+                console.log(UpperBound);
+                var lowInt = lowerBound + ((fluidReplace-fL)*(upperBound-lowerBound))/(fU-fL);
+                console.log("linear int 1",lowInt);
+                var highInt = LowerBound + ((fluidReplace-fL)*(UpperBound-LowerBound))/(fU-fL);
+                console.log("linear int 2",highInt);
+                var linearInt = lowInt +((sodium-1400)*(highInt-lowInt))/(1850-1400);
+                console.log("linear int 3" ,linearInt);
+                var sodiumConsumption = Math.round(sodium*fluidConsumption*linearInt)/100;
+                sodiumResult.textContent = sodiumConsumption;
             };
 
-            var fluidConsumption = (sweatRate*duration*fluidReplace)/duration
+            
             fluidResult.textContent = fluidConsumption;
+            
                 
 
 
