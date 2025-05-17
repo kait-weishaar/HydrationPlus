@@ -164,7 +164,7 @@
 
             //Bounds for percent fluid intake - which are the index of the array so subtract 1 to match array indexing.
             var fluidLower=Math.floor(fluidReplace*10)-1
-            if(fluidLower>0) {
+            if(fluidLower<0) {
                 fluidLower=0
             } else {fluidLower=fluidLower};
             console.log("Fluid lower bound", fluidLower);
