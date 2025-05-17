@@ -16,9 +16,9 @@
     <body>
         <div class="container-fluid p-2 gradient text-white text-center anton-regular">
             <h1> Hydration Calculator</h1>
-            <p1>Simply enter the duration of your race and your sweat rate  </p1>
+            <p1>Simply enter the duration of your race and your sweat rate. Scroll for results.  </p1>
         </div>
-        <section class="grid row m-2 column-gap-5">
+        <section class="d-flex grid row m-2 column-gap-5">
             <div class="col card"><br>
                 <h4 class="text-center">No sweat test data?</h4>
                 <div class="card border-0">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>    
-                <div class="col card border-0">
+                <div class="col-sm-3 col-md-3 card border-0">
                     <div class="card p-3">
                         <h3 class="text-center">Inputs</h3>
                         <form class="was-validated" id="form">
@@ -108,7 +108,7 @@
                         <p id="sodiumResult" class="text-primary"></p>
                     </div>
                 </div>
-                <div class="col card border-0">
+                <div class="col-sm-4 col-md-4 card border-0">
                     <div class="card text-center p-3">
                         <h3>Calculate Sweat Rate</h3>
                         <img src="./images/sweatrate.png" class="rounded" alt="Sweat rate calculation - see link in references">
@@ -163,7 +163,7 @@
             var eighteenFifty=[0, 0, 0, 0, 5, 25, 45, 65, 84, 84];
 
             //Bounds for percent fluid intake - which are the index of the array so subtract 1 to match array indexing.
-            var fluidLower=Math.floor(fluidReplace*10)-1;
+            var fluidLower=Math.floor(fluidReplace*10)-1;gi
             if(fluidLower<0) {
                 fluidLower=0
             } else {fluidLower=fluidLower};
